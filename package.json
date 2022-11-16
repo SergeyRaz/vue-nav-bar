@@ -1,6 +1,6 @@
 {
   "name": "v-nav-bar",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "vue js navigation component",
   "main": "src/components/v_nav.vue",
   "repository": "https://github.com/SergeyRaz/vue-nav-bar.git",
