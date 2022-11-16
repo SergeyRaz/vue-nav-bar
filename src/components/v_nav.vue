@@ -155,6 +155,7 @@
         position: relative;
         width: 100%;
         opacity: 1;
+        padding: 0 1rem;
 
         &.visible {
             opacity: 1;
@@ -162,7 +163,7 @@
 
         .adaptive-nav-list {
             display: flex;
-            justify-content: left;
+            justify-content: center; // right / left / center
             gap: 10px;
             padding: 10px 0;
             width: 100%;
@@ -171,6 +172,7 @@
             .adaptive-nav-item {
                 padding: .2rem 1rem;
                 border: 1px solid #ccc;
+                border-radius: 4px;
                 white-space: nowrap;
 
                 &.active {
