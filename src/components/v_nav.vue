@@ -38,7 +38,23 @@
 
     export default {
         name: "AdaptiveNav",
-        props: ['navData', 'options'],
+        // props: ['navData', 'options'],
+        props: {
+            navData: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+            options: {
+                type: Object,
+                default: function () {
+                    return {
+                        distanceBetweenElements: 10
+                    }
+                }
+            }
+        },
         data() {
             return {
                 navList: undefined,
@@ -72,18 +88,18 @@
             sortListItems(navTemplate, navListItems) {
                 const listRight = Math.floor(navTemplate.getBoundingClientRect().right)
                 this.navItemActive = this.navList.querySelector('.active')
-                if (this.navItemActive) {
-                    this.navItemActiveWidth = Math.ceil(this.navItemActive.getBoundingClientRect().width)
-                } else {
-                    this.navItemActiveWidth = 0
-                }
+                // if (this.navItemActive) {
+                //     this.navItemActiveWidth = Math.ceil(this.navItemActive.getBoundingClientRect().width)
+                // } else {
+                //     this.navItemActiveWidth = 0
+                // }
 
                 let navList = []
                 let navSubList = []
 
                 navListItems.forEach((e) => {
                     const itemRight = Math.floor(e.getBoundingClientRect().right)
-                    if (itemRight < listRight - (this.navBtnWidth + this.navItemActiveWidth)) {
+                    if (itemRight < listRight - (this.navBtnWidth /*+ this.navItemActiveWidth*/)) {
                         navList.push(e)
                     } else {
                         if (e.classList.contains('active')) {
@@ -114,7 +130,7 @@
 
             this.navTemplateItems = this.navTemplate.childNodes
             debounce(this.sortListItems, 50)(this.navList, this.navTemplateItems)
-            this.navBtnWidth = Math.round(this.navBtn.getBoundingClientRect().width) + this.options.distanceBetweenElements * 2
+            this.navBtnWidth = Math.round(this.navBtn.getBoundingClientRect().width) + this.options.distanceBetweenElements
             window.addEventListener('click', (e) => {
                 if (this.navList.contains(e.target)) {
                     this.navSubMenu = true
@@ -127,11 +143,14 @@
 </script>
 
 <style lang="scss">
+    *{
+        box-sizing: border-box;
+    }
     .adaptive-nav {
         border-top: none;
         position: relative;
         width: 100%;
-        opacity: 0;
+        opacity: 1;
 
         &.visible {
             opacity: 1;
@@ -143,6 +162,7 @@
             gap: 10px;
             padding: 10px 0;
             width: 100%;
+            border: 1px solid #ccc;
 
             .adaptive-nav-item {
                 padding: .2rem 1rem;

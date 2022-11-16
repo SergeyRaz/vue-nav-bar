@@ -26,9 +26,7 @@
     "core-js": "^3.8.3",
     "debounce": "^1.2.1",
     "vue": "^2.6.14",
-    "vue-axios": "^3.5.2",
-    "vue-resize": "^1.0.1",
-    "vuetify": "^2.6.0"
+    "vue-resize": "^1.0.1"
   },
   "author": "Sergey Razzhivin",
   "license": "ISC",
@@ -42,9 +40,7 @@
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.54.8",
     "sass-loader": "^13.0.2",
-    "vue-cli-plugin-vuetify": "~2.5.5",
-    "vue-template-compiler": "^2.6.14",
-    "vuetify-loader": "^1.7.0"
+    "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
     "root": true,

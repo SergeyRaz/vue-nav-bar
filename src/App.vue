@@ -66,7 +66,7 @@
                     },
                 ],
                 options: {
-                    distanceBetweenElements: 5
+                    distanceBetweenElements: 10
                 }
             }
         },
