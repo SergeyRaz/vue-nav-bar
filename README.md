@@ -1,23 +1,15 @@
-# vue_nav
+# v-nav-bar
 
-## Project setup
-```
-npm install
-```
+## Plugin under development
 
-### Compiles and hot-reloads for development
+## Installation
 ```
-npm run serve
+npm i v-nav-bar
 ```
 
-### Compiles and minifies for production
+### Module import
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+import vNav from 'v-nav-bar/src/components/v_nav'
 ```
 
 ### Customize configuration
