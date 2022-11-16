@@ -74,7 +74,8 @@
                 navSubMenu: false,
                 adaptiveNavListStyle: {
                     gap: this.options.distanceBetweenElements + 'px' || '10px'
-                }
+                },
+                flag: false
             }
         },
         computed: {},
@@ -88,21 +89,24 @@
             sortListItems(navTemplate, navListItems) {
                 const listRight = Math.floor(navTemplate.getBoundingClientRect().right)
                 this.navItemActive = this.navList.querySelector('.active')
-                // if (this.navItemActive) {
-                //     this.navItemActiveWidth = Math.ceil(this.navItemActive.getBoundingClientRect().width)
-                // } else {
-                //     this.navItemActiveWidth = 0
-                // }
+                console.log(this.flag)
+                if (this.navItemActive && this.flag) {
+                    this.navItemActiveWidth = Math.ceil(this.navItemActive.getBoundingClientRect().width) + this.options.distanceBetweenElements
+                } else {
+                    this.navItemActiveWidth = 0
+                }
 
                 let navList = []
                 let navSubList = []
 
                 navListItems.forEach((e) => {
                     const itemRight = Math.floor(e.getBoundingClientRect().right)
-                    if (itemRight < listRight - (this.navBtnWidth /*+ this.navItemActiveWidth*/)) {
+                    if (itemRight < listRight - (this.navBtnWidth + this.navItemActiveWidth)) {
+                        this.flag = false
                         navList.push(e)
                     } else {
                         if (e.classList.contains('active')) {
+                            this.flag = true
                             navList.push(e)
                         } else {
                             navSubList.push(e)
@@ -162,7 +166,7 @@
             gap: 10px;
             padding: 10px 0;
             width: 100%;
-            border: 1px solid #ccc;
+            /*border: 1px solid #ccc;*/
 
             .adaptive-nav-item {
                 padding: .2rem 1rem;
