@@ -3,7 +3,7 @@
         <resize-observer @notify="handleResize"/>
         <div ref="adaptive_nav_list"
              class="adaptive-nav-list"
-             :style="adaptiveNavListStyle"
+             :style="getStyleNavList"
         >
             <template v-for="(item, index, key) in sortNavData.navList">
                 <div :key="key" v-html="item.outerHTML" class="wrap-item"></div>
@@ -13,7 +13,9 @@
                      class="adaptive-nav-btn"
                      @click="navBtnClick()"
                 >
-                    <img src="../assets/btnMenu.svg" alt="">
+                    <slot name="iconBtn">
+                        <img src="../assets/btnMenu.svg" alt="">
+                    </slot>
                 </div>
                 <div ref="adaptive_nav_sublist" :class="['adaptive-nav-sublist', {active: navSubMenu}]">
                     <div v-for="(item, index, key) in sortNavData.navSubList" :key="key" v-html="item.outerHTML"></div>
@@ -22,13 +24,9 @@
         </div>
         <div ref="adaptive_nav_template"
              class="adaptive-nav-template"
-             :style="adaptiveNavListStyle"
+             :style="getStyleNavTemplate"
         >
-            <div v-for="(item, index, key) in navData"
-                 :key="key"
-                 :class="['adaptive-nav-item', {active: item.active}]">
-                {{item.name}}
-            </div>
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -38,14 +36,7 @@
 
     export default {
         name: "AdaptiveNav",
-        // props: ['navData', 'options'],
         props: {
-            navData: {
-                type: Array,
-                default: function () {
-                    return []
-                }
-            },
             options: {
                 type: Object,
                 default: function () {
@@ -72,26 +63,43 @@
                     pointerEvents: 'none',
                 },
                 navSubMenu: false,
-                adaptiveNavListStyle: {
-                    gap: this.options.distanceBetweenElements + 'px' || '10px'
-                },
                 flag: false
             }
         },
-        computed: {},
+        computed: {
+            getOptions() {
+                return {
+                    distanceBetweenElements: this.options.distanceBetweenElements || '10px',
+                    positionNav: this.options.positionNav || 'center',
+                }
+            },
+            getStyleNavList() {
+                return {
+                    gap: this.getOptions.distanceBetweenElements,
+                    justifyContent: this.getOptions.positionNav
+                }
+            },
+            getStyleNavTemplate() {
+                return {
+                    gap: this.getOptions.distanceBetweenElements,
+                }
+            }
+        },
         methods: {
             navBtnClick() {
                 this.navSubMenu = !this.navSubMenu
             },
             handleResize() {
+                // const t0 = performance.now();
                 debounce(this.sortListItems, 50)(this.navList, this.navTemplateItems)
+                // const t1 = performance.now();
+                // console.log(t1 - t0, 'milliseconds');
             },
             sortListItems(navTemplate, navListItems) {
                 const listRight = Math.floor(navTemplate.getBoundingClientRect().right)
                 this.navItemActive = this.navList.querySelector('.active')
-                console.log(this.flag)
                 if (this.navItemActive && this.flag) {
-                    this.navItemActiveWidth = Math.ceil(this.navItemActive.getBoundingClientRect().width) + this.options.distanceBetweenElements
+                    this.navItemActiveWidth = Math.ceil(this.navItemActive.getBoundingClientRect().width) + parseInt(this.getOptions.distanceBetweenElements)
                 } else {
                     this.navItemActiveWidth = 0
                 }
@@ -134,7 +142,7 @@
 
             this.navTemplateItems = this.navTemplate.childNodes
             debounce(this.sortListItems, 50)(this.navList, this.navTemplateItems)
-            this.navBtnWidth = Math.round(this.navBtn.getBoundingClientRect().width) + this.options.distanceBetweenElements
+            this.navBtnWidth = Math.round(this.navBtn.getBoundingClientRect().width) + parseInt(this.getOptions.distanceBetweenElements)
             window.addEventListener('click', (e) => {
                 if (this.navList.contains(e.target)) {
                     this.navSubMenu = true
@@ -147,9 +155,10 @@
 </script>
 
 <style lang="scss">
-    *{
+    * {
         box-sizing: border-box;
     }
+
     .adaptive-nav {
         border-top: none;
         position: relative;
@@ -163,17 +172,18 @@
 
         .adaptive-nav-list {
             display: flex;
-            justify-content: center; // right / left / center
             gap: 10px;
             padding: 10px 0;
             width: 100%;
-            /*border: 1px solid #ccc;*/
 
             .adaptive-nav-item {
                 padding: .2rem 1rem;
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 white-space: nowrap;
+                display: flex;
+                gap: .5rem;
+                align-items: center;
 
                 &.active {
                     background: darkcyan;
@@ -233,6 +243,9 @@
                 padding: .2rem 1rem;
                 border: 1px solid #ccc;
                 white-space: nowrap;
+                display: flex;
+                gap: .5rem;
+                align-items: center;
             }
         }
     }
