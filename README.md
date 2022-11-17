@@ -13,38 +13,30 @@ import vNav from 'v-nav-bar/src/components/v_nav'
 ```
 ### Template
 ```
-<v_nav>
-    <div class="adaptive-nav-item" v-for="(item, index, key) in 10" :key="key">
-        <div>Item - {{item}}</div>
-    </div>
-</v_nav>
+    <v_nav>
+        <div class="adaptive-nav-item" v-for="(item, index, key) in 10" :key="key">
+            <div>Item - {{item}}</div>
+        </div>
+    </v_nav>
 ```
 ### Template with params
 ```
-<v_nav :options="options">
-    <div class="adaptive-nav-item" v-for="(item, index, key) in 10" :key="key">
-        <div>Item - {{item}}</div>
-    </div>
-</v_nav>
-```
-### Template with params
-```
-<v_nav :options="options">
-    <div class="adaptive-nav-item" v-for="(item, index, key) in 10" :key="key">
-        <div>Item - {{item}}</div>
-    </div>
-</v_nav>
+    <v_nav :options="options">
+        <div class="adaptive-nav-item" v-for="(item, index, key) in 10" :key="key">
+            <div>Item - {{item}}</div>
+        </div>
+    </v_nav>
 ```
 ### Params
 ```
-data: () => {
-    return {
-        options: {
-            distanceBetweenElements: '5px', // px
-            positionNav: 'center' // left / right / center
+    data: () => {
+        return {
+            options: {
+                distanceBetweenElements: '5px', // px
+                positionNav: 'center' // left / right / center
+            }
         }
     }
-}
 ```
 ### Slots
 ```
