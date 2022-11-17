@@ -1,7 +1,5 @@
 # v-nav-bar
 
-## Plugin under development
-
 ## Installation
 ```
 npm i v-nav-bar
