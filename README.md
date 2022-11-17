@@ -13,19 +13,19 @@ import vNav from 'v-nav-bar/src/components/v_nav'
 ```
 ### Template
 ```html
-<v_nav>
+<v-nav>
     <div class="adaptive-nav-item" v-for="(item, index, key) in 10" :key="key">
         <div>Item - {{item}}</div>
     </div>
-</v_nav>
+</v-nav>
 ```
 ### Template with params
 ```html
-<v_nav :options="options">
+<v-nav :options="options">
     <div class="adaptive-nav-item" v-for="(item, index, key) in 10" :key="key">
         <div>Item - {{item}}</div>
     </div>
-</v_nav>
+</v-nav>
 ```
 ### Params
 ```js
